@@ -16,19 +16,16 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.10.2' # install the python version needed
-      
+
       - name: execute py script
         run: python getips.py
-          
-      - name: commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "update data" -a
-          
-      - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
+
+      - name: commit and push files if updated
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main  
+          branch: main
+          commit_message: update data
+          commit_user_name: GitHub Action
+          commit_user_email: action@github.com
+          commit_author: GitHub Action <action@github.com>
+          file_pattern: awsips.txt cloudfront.txt
