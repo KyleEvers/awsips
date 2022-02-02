@@ -15,13 +15,13 @@ def output_cidrs(filename: str, cidrs: list[str]):
 with urllib.request.urlopen("https://ip-ranges.amazonaws.com/ip-ranges.json") as url:
     data = json.loads(url.read().decode())
     # Print all AWS IPs
-    allawsips = list(ip_prefix["ip_prefix"] for ip_prefix in data["prefixes"])
-    output_cidrs("awsips.txt", allawsips)
+    all_aws_ips = list(ip_prefix["ip_prefix"] for ip_prefix in data["prefixes"])
+    output_cidrs("awsips.txt", all_aws_ips)
 
     # Print all Cloudfront IPs
-    cloudfront = list(
+    cloudfront_ips = list(
         ip_prefix["ip_prefix"]
         for ip_prefix in data["prefixes"]
         if "CLOUDFRONT" in ip_prefix["service"]
     )
-    output_cidrs("cloudfront.txt", cloudfront)
+    output_cidrs("cloudfront.txt", cloudfront_ips)
