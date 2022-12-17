@@ -1,12 +1,13 @@
-#!/usr/bin/env python
-
 # Standard Python Libraries
 import ipaddress
 import json
+from typing import Iterator, Union
 import urllib.request
 
 
-def output_cidrs(filename: str, cidrs: list[str]):
+def output_cidrs(
+    filename: str, cidrs: Iterator[Union[ipaddress.IPv4Network, ipaddress.IPv6Network]]
+):
     """Output the given CIDRs to the given file."""
     with open(filename, "w", encoding="utf-8") as out:
         for cidr in cidrs:
